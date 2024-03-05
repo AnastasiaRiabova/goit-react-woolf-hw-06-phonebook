@@ -1,8 +1,14 @@
 import React from 'react';
 import classes from './Filter.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFilter } from '../../redux/selectors';
+import { changeFilter } from '../../redux/filterSlice';
 
-export const Filter = ({ filter, onChange }) => {
-  const handleFilterChange = e => onChange(e.target.value);
+export const Filter = () => {
+  const filter = useSelector(getFilter);
+  const dispatch = useDispatch();
+  const handleFilterChange = ({ target: { value } }) =>
+    dispatch(changeFilter(value.toLowerCase().trim()));
 
   return (
     <div className={classes.container}>
